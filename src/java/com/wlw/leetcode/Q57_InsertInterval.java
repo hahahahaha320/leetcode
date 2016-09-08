@@ -1,38 +1,43 @@
 package com.wlw.leetcode;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class Q56_MergeIntervals {
+public class Q57_InsertInterval {
 
 	public static void main(String[] args) {
-		Q56_MergeIntervals test = new Q56_MergeIntervals();
+		Q57_InsertInterval test = new Q57_InsertInterval();
 		
 		Date start = new Date();
 		
 		List<Interval> intervals = new ArrayList<Interval>();
-		intervals.add(new Interval(2,3));
-		intervals.add(new Interval(4,5));
+		intervals.add(new Interval(1,2));
+		intervals.add(new Interval(3,5));
 		intervals.add(new Interval(6,7));
-		intervals.add(new Interval(8,9));
-		intervals.add(new Interval(1,10));
+		intervals.add(new Interval(8,10));
+		intervals.add(new Interval(12,16));
 		
-		List<Interval> result = test.merge(intervals);
+		List<Interval> result = test.insert(intervals,new Interval(4,9));
 		
 		Date end = new Date();
 		System.out.println("time:"+ (end.getTime()-start.getTime()));
 		System.out.println(result);
 	}
-	public List<Interval> merge(List<Interval> intervals) {
-		List<Interval> result = doMerge(intervals);
-		while(result.size() != intervals.size())	{
-			intervals = result;
-			result = doMerge(intervals);
-		}
-        return result;
-    }
-	public List<Interval> doMerge(List<Interval> intervals) {
+	public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+		intervals.add(newInterval);
+		Collections.sort(intervals,new Comparator<Interval>() {
+			public int compare(Interval o1, Interval o2) {
+				if(o1.start < o2.start)	{
+					return -1;
+				} else if(o1.start > o2.start){
+					return 1;
+				}
+				return 0;
+			}
+		});
 		List<Interval> result = new ArrayList<Interval>();
 		for(Interval interval : intervals)	{
 			boolean isMerge = false;
@@ -47,7 +52,6 @@ public class Q56_MergeIntervals {
 			if(!isMerge)	{
 				result.add(interval);
 			}
-			
 		}
         return result;
     }

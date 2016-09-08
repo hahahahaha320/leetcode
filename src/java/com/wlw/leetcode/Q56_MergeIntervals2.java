@@ -1,13 +1,15 @@
 package com.wlw.leetcode;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class Q56_MergeIntervals {
+public class Q56_MergeIntervals2 {
 
 	public static void main(String[] args) {
-		Q56_MergeIntervals test = new Q56_MergeIntervals();
+		Q56_MergeIntervals2 test = new Q56_MergeIntervals2();
 		
 		Date start = new Date();
 		
@@ -25,14 +27,16 @@ public class Q56_MergeIntervals {
 		System.out.println(result);
 	}
 	public List<Interval> merge(List<Interval> intervals) {
-		List<Interval> result = doMerge(intervals);
-		while(result.size() != intervals.size())	{
-			intervals = result;
-			result = doMerge(intervals);
-		}
-        return result;
-    }
-	public List<Interval> doMerge(List<Interval> intervals) {
+		Collections.sort(intervals,new Comparator<Interval>() {
+			public int compare(Interval o1, Interval o2) {
+				if(o1.start < o2.start)	{
+					return -1;
+				} else if(o1.start > o2.start){
+					return 1;
+				}
+				return 0;
+			}
+		});
 		List<Interval> result = new ArrayList<Interval>();
 		for(Interval interval : intervals)	{
 			boolean isMerge = false;
