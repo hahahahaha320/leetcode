@@ -17,9 +17,7 @@ public class Q58_LengthofLastWord {
 		System.out.println(result);
 	}
 	public int lengthOfLastWord(String s) {
-        if(s.endsWith(" "))	{
-        	return 0;
-        }
+		s = s.trim();
         int pos = s.lastIndexOf(' ');
         if(s.lastIndexOf(' ') == -1)	{
         	return s.length();
