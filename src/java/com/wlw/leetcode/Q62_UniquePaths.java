@@ -16,13 +16,11 @@ public class Q62_UniquePaths {
 		System.out.println(result);
 	}
 	public int uniquePaths(int m, int n) {
-		int[] result = new int[m];
-		for(int i=1;i<=n;i++)	{
-			int temp = 0;
-			result[m-1] = 1;
-			for(int j=m-1;j>0;j--)	{
-				temp = result[j-1];
-				result[j-1]  = temp+result[j];
+		int[] result = new int[n];
+		result[n-1] = 1;
+		for(int i=m-1;i>=0;i--)	{
+			for(int j=n-2;j>=0;j--)	{
+				result[j]  = result[j]+result[j+1];
 			}
 		}
 		return result[0];

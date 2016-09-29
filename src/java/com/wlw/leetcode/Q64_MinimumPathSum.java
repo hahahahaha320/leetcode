@@ -9,7 +9,7 @@ public class Q64_MinimumPathSum {
 		
 		Date start = new Date();
 		
-		int[][] grid = new int[][]{{0,0},{1,1},{0,0}};
+		int[][] grid = new int[][]{{1,2,3},{4,5,6}};
 		int result = test.minPathSum(grid);
 		
 		Date end = new Date();
@@ -17,18 +17,17 @@ public class Q64_MinimumPathSum {
 		System.out.println(result);
 	}
 	public int minPathSum(int[][] grid) {
-		int n = grid.length;
-		int m = grid[0].length;
-		int[] result = new int[m];
-		for(int i=0;i<m;i++)	{
-			result[i] = Integer.MAX_VALUE;
+		int m = grid.length;
+		int n = grid[0].length;
+		int[] result = new int[n];
+		result[n-1] = grid[m-1][n-1];
+		for(int i=n-2;i>=0;i--)	{
+			result[i] = result[i+1]+grid[m-1][i];
 		}
-		for(int i=0;i<n;i++)	{
-			int temp = 0;
-			result[m-1] = 1;
-			for(int j=m-1;j>=0;j--)	{
-				temp = result[j-1];
-				result[j-1]  = result[j]+Math.min(temp, b);
+		for(int i=m-2;i>=0;i--)	{
+			result[n-1] = grid[i][n-1]+result[n-1];
+			for(int j=n-2;j>=0;j--)	{
+				result[j] = grid[i][j]+Math.min(result[j],result[j+1]);
 			}
 		}
 		return result[0];
