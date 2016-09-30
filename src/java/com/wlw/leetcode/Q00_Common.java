@@ -10,7 +10,7 @@ public class Q00_Common {
 		Date start = new Date();
 		
 		String str = "abc";
-		String result = test.longestPalindrome(str);
+		Object result = test.longestPalindrome(str);
 		
 		Date end = new Date();
 		System.out.println("time:"+ (end.getTime()-start.getTime()));
