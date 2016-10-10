@@ -2,10 +2,10 @@ package com.wlw.leetcode;
 
 import java.util.Date;
 
-public class Q76_MinimumWindowSubstring {
+public class Q76_MinimumWindowSubstring2 {
 
 	public static void main(String[] args) {
-		Q76_MinimumWindowSubstring test = new Q76_MinimumWindowSubstring();
+		Q76_MinimumWindowSubstring2 test = new Q76_MinimumWindowSubstring2();
 		
 		Date start = new Date();
 		
@@ -24,23 +24,20 @@ public class Q76_MinimumWindowSubstring {
 		int resultStart = -99999;
 		int resultEnd = 0;
 		
+		int[] array = new int[60];
+		int needNum = t.length();
+		for (int j = 0; j < needNum; j++) {
+			array[t.charAt(j) - 'A']++;
+		}
+		
 		int start = 0,end=0;
-		boolean isSuc = false;
 		while(end < s.length())	{
-			Date startTime = new Date();
-			if(contains(s.substring(start, end+1),t))	{
-				isSuc = true;
-			} else {
-				isSuc = false;
-			}
-			Date endTime = new Date();
-			time = time+ (endTime.getTime()-startTime.getTime());
-			
-			if(isSuc)	{
+			if(needNum == 0)	{
 				if(end-start < resultEnd-resultStart)	{
 					resultEnd = end;
 					resultStart = start;
 				}
+				
 				start++;
 			} else {
 				end++;
