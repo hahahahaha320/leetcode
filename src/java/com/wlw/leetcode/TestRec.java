@@ -26,6 +26,6 @@ public class TestRec {
 		list.add(1);list.add(2);list.add(3);list.add(4);list.add(5);
 		List<Integer> result = new ArrayList<Integer>();
 		
-		rec(list, 3, result);
+		rec(list, 2, result);
 	}
 }
