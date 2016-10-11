@@ -15,7 +15,7 @@ public class Q79_WordSearch {
 				  						{'S','F','E','S'},
 				  						{'A','D','E','E'}};
 		//SEE  ABCB
-		Object result = test.exist(board,"ABCESEEEFA");
+		Object result = test.exist(board,"A");
 
 		Date end = new Date();
 		System.out.println("time:"+ (end.getTime()-start.getTime()));
@@ -39,7 +39,6 @@ public class Q79_WordSearch {
 	
 	public boolean go(char[][] board,int m,int n,int startRow,int startCol,String word,Set<Integer> gone)	{
 		if(word.length() == 1 && board[startRow][startCol] == word.charAt(0))	{
-			System.out.println(gone);
 			return true;
 		}
 		if(board[startRow][startCol] != word.charAt(0))	{
@@ -49,20 +48,24 @@ public class Q79_WordSearch {
 		
 		boolean suc = false;
 		//向右
-		if(startCol < n-1 && !gone.contains(startRow*n+startCol+1))	{
+		if(startCol < n-1 && !gone.contains(startRow*n+startCol+1)
+				&& board[startRow][startCol+1] ==  word.charAt(1))	{
 			suc = suc || go(board, m, n, startRow, startCol+1, word.substring(1), gone);
 		}
 		//向左
-		if(startCol > 0 && !gone.contains(startRow*n+startCol-1))	{
+		if(startCol > 0 && !gone.contains(startRow*n+startCol-1)
+				&& board[startRow][startCol-1] ==  word.charAt(1))	{
 			suc = suc || go(board, m, n, startRow, startCol-1, word.substring(1), gone);
 		}
 		
 		//向下
-		if(startRow < m-1 && !gone.contains((startRow+1)*n+startCol))	{
+		if(startRow < m-1 && !gone.contains((startRow+1)*n+startCol)
+				&& board[startRow+1][startCol] ==  word.charAt(1))	{
 			suc = suc || go(board, m, n, startRow+1, startCol, word.substring(1), gone);
 		}
 		//向上
-		if(startRow > 0 && !gone.contains((startRow-1)*n+startCol))	{
+		if(startRow > 0 && !gone.contains((startRow-1)*n+startCol)
+				&& board[startRow-1][startCol] ==  word.charAt(1))	{
 			suc = suc || go(board, m, n, startRow-1, startCol, word.substring(1), gone);
 		}
 		gone.remove(startRow*n+startCol);
