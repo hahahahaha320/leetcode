@@ -3,21 +3,48 @@ package com.wlw.leetcode;
 import java.util.Date;
 import java.util.Stack;
 
-public class Q84_LargestRectangleinHistogram2 {
+public class Q85_MaximalRectangle {
 
 	public static void main(String[] args) {
-		Q84_LargestRectangleinHistogram2 test = new Q84_LargestRectangleinHistogram2();
+		Q85_MaximalRectangle test = new Q85_MaximalRectangle();
 		
 		Date start = new Date();
 		
-		int[] heights = new int[]{5,4,1,2};
-		Object result = test.largestRectangleArea(heights);
+		char[][] matrix = new char[][]{{'1','0','1','0','0'},
+									{'1','0','1','1','1'},
+									{'1','1','1','1','1'},
+									{'1','0','0','1','0'}};
+		Object result = test.maximalRectangle(matrix);
 		
 		Date end = new Date();
 		System.out.println("time:"+ (end.getTime()-start.getTime()));
 		System.out.println(result);
 	}
-	//当处理到i时，stack存放的是所有比height[i]小的柱子组成的波峰图
+	
+	public int maximalRectangle(char[][] matrix) {
+		int m = matrix.length;
+		if(m==0)	{
+			return 0;
+		}
+		int n = matrix[0].length;
+		int[] height = new int[n];
+		int max = 0;
+		for(int i=0;i<m;i++)	{
+			for(int j=0;j<n;j++)	{
+				if(matrix[i][j] == '0')	{
+					height[j] = 0;
+				} else {
+					height[j]++;
+				}
+			}
+			int curMax = largestRectangleArea(height);
+			if(max < curMax)	{
+				max = curMax;
+			}
+		}
+		return max;
+		
+	}
 	public int largestRectangleArea(int[] height) {
 		int area = 0;
 		Stack<Integer> stack = new Stack<Integer>();
