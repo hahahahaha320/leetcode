@@ -16,4 +16,14 @@ public class Util {
 			System.out.println();
 		}
 	}
+	public static void printMatrix(byte[][] matrix) {
+		int m = matrix.length;
+		int n = matrix[0].length;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				System.out.print(matrix[i][j] + ",");
+			}
+			System.out.println();
+		}
+	}
 }
