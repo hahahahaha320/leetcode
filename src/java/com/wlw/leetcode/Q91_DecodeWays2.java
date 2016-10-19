@@ -22,20 +22,19 @@ public class Q91_DecodeWays2 {
 	    }
 		int len = s.length();
 		int[] result = new int[len+1];
-		result[0] = 1;
-		result[1] = 1;
-		for(int i=1;i<s.length();i++)	{
-			char c = s.charAt(i);
-			int pre1 = 0;
-			if(c != '0')	{
-				pre1 = result[i];
+		result[0] = result[1] = 1;
+		for(int i=1;i<len;i++)	{
+			char curChar = s.charAt(i);
+			int preNum1 = 0;
+			if(curChar != '0')	{
+				preNum1 = result[i];
 			}
-			int pre2 = 0;
+			int preNum2 = 0;
 			int preChar = s.charAt(i-1);
-			if(preChar!='0' && (preChar == '1' ||preChar == '2' && c <= '6'))	{
-				pre2 = result[i-1];
+			if(preChar!='0' && (preChar == '1' || preChar == '2' && curChar <= '6'))	{
+				preNum2 = result[i-1];
 			}
-			int cur = pre1+pre2;
+			int cur = preNum1+preNum2;
 			if(cur == 0)	{
 				return 0;
 			}
