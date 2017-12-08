@@ -27,21 +27,29 @@ public class Q115_DistinctSubsequences2 {
 		System.out.println(result);
 	}
 	public int numDistinct(String s, String t) {
-		List<Integer> result = new ArrayList<Integer>();
-		result.add(0);
-		geneChooseList(s,t,result);
-		return result.get(0);
-    }
-	private void geneChooseList(String str,String target,List<Integer> result)	{
-		for(int i=0;i<str.length();i++)	{
-			if(str.charAt(i) == target.charAt(0))	{
-				if(target.length()==1)	{
-					result.set(0,result.get(0)+1);
-				} else {
-					geneChooseList(str.substring(i+1), target.substring(1),result);
-				}
-			}
-		}
+		if(s==null||t==null) {  
+            return 0;  
+        }  
+        if(s.length()<t.length()) {  
+            return 0;  
+        }  
+        int [][] dp = new int[s.length()+1][t.length()+1];  
+        dp[0][0] = 1;  
+        //任意一个字符串变换成一个空串都只有一种变换方法  
+        for(int i=0;i<s.length();i++) {  
+            dp[i][0] = 1;      
+        }  
+        //递推公式  
+        for(int i=1;i<=s.length();i++) {  
+            for(int j=1;j<=t.length();j++) {  
+                //如果S和T的当前字符相等，那么有两种选法；否则S的当前字符不能要  
+                dp[i][j] = dp[i-1][j];  
+                if(s.charAt(i-1)==t.charAt(j-1)) {  
+                    dp[i][j] += dp[i-1][j-1];  
+                }  
+            }  
+        }  
+        return dp[s.length()][t.length()];  
 	}
 }
 
