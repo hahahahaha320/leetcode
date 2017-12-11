@@ -2,14 +2,13 @@ package com.wlw.leetcode2;
 
 import java.util.Date;
 
-public class Q121_BestTimetoBuyandSellStock2 {
+public class Q122_BestTimetoBuyandSellStockII {
 
 	public static void main(String[] args) {
-		Q121_BestTimetoBuyandSellStock2 test = new Q121_BestTimetoBuyandSellStock2();
+		Q122_BestTimetoBuyandSellStockII test = new Q122_BestTimetoBuyandSellStockII();
 		
 		String str = ""+/**~{*/""
-			+ "10000,9999,9998,9997,9996"
-			+ "\r\n"
+			+ "1,2"
 		+ "\r\n"/**}*/;
 		
 		str = str.replace("\r","");
@@ -28,19 +27,27 @@ public class Q121_BestTimetoBuyandSellStock2 {
 		System.out.println("time:"+ (end.getTime()-start.getTime()));
 		System.out.println(result);
 	}
-	//动态规划的思考方式是：假设已经知道了较小规模问题的答案A(i)，然后增加一个元素的情况下，
-	//问题的答案A(i+1)如何能够从A(i)推导出来，也就是得到递推公式，也就是状态转移公式。
 	public int maxProfit(int[] prices) {
 		if(prices == null || prices.length == 0)	{
 			return 0;
 		}
-        int curSellMax = 0;
-        int globalMax = 0;
+		int totalProfit = 0;
+		int maxProfit = 0;
+        int buyIndex = 0;
+        
         for(int i=1;i<prices.length;i++)	{
-        	curSellMax = Math.max(prices[i]-prices[i-1]+curSellMax,0);
-        	globalMax = Math.max(curSellMax,globalMax);
+        	if(prices[i] > prices[i-1])	{
+        		maxProfit = prices[i]-prices[buyIndex];
+        	} else {
+        		buyIndex = i;
+        		totalProfit = totalProfit+maxProfit;
+        		maxProfit = 0;
+        	}
+        	if(i == prices.length-1)	{
+        		totalProfit = totalProfit+maxProfit;
+        	}
         }
-        return globalMax;
+        return totalProfit;
     }
 }
 

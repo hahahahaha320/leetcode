@@ -2,13 +2,13 @@ package com.wlw.leetcode2;
 
 import java.util.Date;
 
-public class Q121_BestTimetoBuyandSellStock {
+public class Q122_BestTimetoBuyandSellStockII2 {
 
 	public static void main(String[] args) {
-		Q121_BestTimetoBuyandSellStock test = new Q121_BestTimetoBuyandSellStock();
+		Q122_BestTimetoBuyandSellStockII2 test = new Q122_BestTimetoBuyandSellStockII2();
 		
 		String str = ""+/**~{*/""
-			+ "10000,9999,9998,9997,9996"
+			+ "1,2"
 		+ "\r\n"/**}*/;
 		
 		str = str.replace("\r","");
@@ -28,22 +28,16 @@ public class Q121_BestTimetoBuyandSellStock {
 		System.out.println(result);
 	}
 	public int maxProfit(int[] prices) {
-        int max = 0;
-        int maxBuy = Integer.MAX_VALUE;
-        for(int i=0;i<prices.length;i++)	{
-        	if(prices[i] > maxBuy)	{
-        		continue;
-        	}
-        
-        	for(int j=i+1;j<prices.length;j++)	{
-        		int profit = prices[j]-prices[i];
-            	if(profit > max)	{
-            		max = profit;
-            		maxBuy = prices[i];
-            	}
-            }
+		if(prices == null || prices.length == 0)	{
+			return 0;
+		}
+		int totalProfit = 0;
+        for(int i=1;i<prices.length;i++)	{
+        	if(prices[i] > prices[i-1])	{
+        		totalProfit += prices[i]-prices[i-1];
+        	} 
         }
-		return max;
+        return totalProfit;
     }
 }
 
