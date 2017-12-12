@@ -7,25 +7,8 @@ public class Q124_BinaryTreeMaximumPathSum {
 	public static void main(String[] args) {
 		Q124_BinaryTreeMaximumPathSum test = new Q124_BinaryTreeMaximumPathSum();
 		
-		TreeNode root = new TreeNode(2);
-		TreeNode node2 = new TreeNode(-1);
-//		TreeNode node3 = new TreeNode(-1);
-//		
-//		TreeNode node4 = new TreeNode(4);
-//		TreeNode node5 = new TreeNode(5);
-//		
-//		TreeNode node6 = new TreeNode(6);
-//		TreeNode node7 = new TreeNode(7);
-//		
-		root.left = node2;
-//		root.right = node3;
-//		
-//		node2.left = node4;
-//		node2.right = node5;
-//		
-//		node3.left = node6;
-//		node3.right = node7;
-		
+		String testStr = "1,2,3,4,5,6,7";
+		TreeNode root = ParamUtil.str2TreeNode(testStr);
 		
 		Date start = new Date();
 		Object result = test.maxPathSum(root);
@@ -50,9 +33,19 @@ public class Q124_BinaryTreeMaximumPathSum {
         } else {
         	rightMaxPath = maxPathSum(root.right);
         }
-		int maxPath = Math.max(leftMaxPath,rightMaxPath);
-		maxPath = Math.max(maxPath,maxLeg(root.left)+maxLeg(root.right)+root.val);
-		return maxPath;
+		int maxPathNotRoot = Math.max(leftMaxPath,rightMaxPath);
+		
+		int leftMaxLeg = maxLeg(root.left);
+		int rightMaxLeg = maxLeg(root.right);
+		int maxPathWithRoot = root.val;
+		if(leftMaxLeg > 0)	{
+			maxPathWithRoot += leftMaxLeg;
+		}
+		if(rightMaxLeg > 0)	{
+			maxPathWithRoot += rightMaxLeg;
+		}
+		Integer result = Math.max(maxPathNotRoot,maxPathWithRoot);
+		return result;
     }
 	private int maxLeg(TreeNode node)	{
 		if(node == null)	{
@@ -62,6 +55,7 @@ public class Q124_BinaryTreeMaximumPathSum {
 			return node.val;
 		}
 		int maxLeg = Math.max(maxLeg(node.left),maxLeg(node.right))+node.val;
+		maxLeg = Math.max(maxLeg,node.val);
 		return maxLeg;
 	}
 }

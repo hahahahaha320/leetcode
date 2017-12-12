@@ -1,5 +1,6 @@
 package com.wlw.leetcode2;
 
+
 public class TreeNode {
 	int val;
 	TreeNode left;
