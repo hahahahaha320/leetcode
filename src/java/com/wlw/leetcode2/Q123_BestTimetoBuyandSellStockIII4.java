@@ -3,7 +3,13 @@ package com.wlw.leetcode2;
 import java.util.Date;
 
 public class Q123_BestTimetoBuyandSellStockIII4 {
-
+	/**
+	 * 容易想到的想法是暴力解决，分成两边，一边一个交易，取最大值。
+	 * 这个想法的优化方法是去掉中间不需要的price，减小prices的规模，比如 1,2,3,5  就可以把2,3去掉而不影响结果。
+	 * 
+	 * 最好的方法是用动态规划，不过理解起来有难度。
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Q123_BestTimetoBuyandSellStockIII4 test = new Q123_BestTimetoBuyandSellStockIII4();
 		//2,1,2,1,0,0,1

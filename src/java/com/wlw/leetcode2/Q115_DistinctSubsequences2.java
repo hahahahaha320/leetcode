@@ -1,8 +1,6 @@
 package com.wlw.leetcode2;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Q115_DistinctSubsequences2 {
 

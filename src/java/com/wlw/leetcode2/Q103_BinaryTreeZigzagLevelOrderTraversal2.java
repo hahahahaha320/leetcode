@@ -38,7 +38,7 @@ public class Q103_BinaryTreeZigzagLevelOrderTraversal2 {
 		System.out.println(result);
 	}
 	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        if(root == null) return new ArrayList();
+        if(root == null) return new ArrayList<List<Integer>>();
         
         List<List<Integer>> list = new ArrayList<List<Integer>>();
             

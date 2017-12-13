@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Q126_WordLadderII {
+public class Q126_WordLadderII2 {
 
 	public static void main(String[] args) {
-		Q126_WordLadderII test = new Q126_WordLadderII();
+		Q126_WordLadderII2 test = new Q126_WordLadderII2();
 		
 		String beginWord = "charge";
 		String endWord = "comedo";
@@ -266,9 +266,10 @@ public class Q126_WordLadderII {
 		Date end = new Date();
 		System.out.println("time:"+ (end.getTime()-start.getTime()));
 		System.out.println(result);
+		System.out.println("num:"+num);
 		
 	}
-	
+	static int num = 0;
 	public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
 		if(!wordList.contains(endWord))	{
 			return new ArrayList<List<String>>();
@@ -282,6 +283,11 @@ public class Q126_WordLadderII {
 			return result;
 		}
 		wordList.remove(endWord);
+		Set<String> wordSet = new HashSet<String>();
+		for(String word : wordList)	{
+			wordSet.add(word);
+		}
+		
 		Map<String,Set<String>> roadMap = new HashMap<String,Set<String>>();
 		Set<String> usedStr = new HashSet<String>();
 		Set<String> targetList = new HashSet<String>();
@@ -292,14 +298,16 @@ public class Q126_WordLadderII {
 			Set<String> newTargetList = new HashSet<String>();
 			Set<String> usedTemp = new HashSet<String>();
 			for(String target : targetList)	{
+				
+				Set<String> reachSet = geneReachableSet(target);
 				for(String word : wordList)	{
-					if(!usedStr.contains(word) && isReach(word,target))	{
+					if(!usedStr.contains(word) && reachSet.contains(word))	{
 						putIntoMap(roadMap, word,target);
 						usedTemp.add(word);
 						newTargetList.add(word);
 					}
 				}
-				if(isReach(beginWord,target))	{
+				if(reachSet.contains(beginWord))	{
 					isFind = true;
 					putIntoMap(roadMap,beginWord,target);
 				}
@@ -343,6 +351,20 @@ public class Q126_WordLadderII {
 		}
 		return result;
     }
+	private Set<String> geneReachableSet(String target)	{
+		Set<String> result = new HashSet<String>();
+		for(int i=0;i<target.length();i++)	{
+			String pre = target.substring(0,i);
+			String post = target.substring(i+1,target.length());
+			for(char a = 'a';a<='z';a++)	{
+				if(a != target.charAt(i))	{
+					result.add(pre+a+post);
+				}
+			}
+		}
+		return result;
+	}
+	
 	private void putIntoMap(Map<String,Set<String>> roadMap,String key,String word)	{
 		Set<String> targetList = roadMap.get(key);
 		if(targetList == null)	{

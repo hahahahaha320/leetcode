@@ -3,7 +3,11 @@ package com.wlw.leetcode2;
 import java.util.Date;
 
 public class Q124_BinaryTreeMaximumPathSum2 {
-
+	/**
+	 *  容易想到的方法是分别经过root的maxPath，和不经过root的maxPath。然后递归解决。
+	 *  用maxPathDown计算以node为顶点，往下垂的一条线的最大值.这样可以极大减小递归里的计算量。
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Q124_BinaryTreeMaximumPathSum2 test = new Q124_BinaryTreeMaximumPathSum2();
 		
@@ -24,7 +28,6 @@ public class Q124_BinaryTreeMaximumPathSum2 {
         maxPathDown(root);
         return maxValue;
     }
-    //maxPathDown计算以node为顶点，往下垂的一条线的最大值.
     private int maxPathDown(TreeNode node) {
         if (node == null) return 0;
         int left = Math.max(0, maxPathDown(node.left));

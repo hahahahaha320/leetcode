@@ -8,10 +8,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class ParamUtil {
 	
-	public static List<String> str2List(String str)	{
+	private static String[] str2Arr(String str)	{
 		str = str.replaceAll("[\r\n\\[\\]\"]","");
-		List<String> result = new ArrayList<String>();
 		String[] sa = str.split(",");
+		return sa;
+	}
+	public static List<String> str2List(String str)	{
+		String[] sa = str2Arr(str);
+		List<String> result = new ArrayList<String>();
 		for(String a : sa)	{
 			result.add(a);
 		}
@@ -19,8 +23,7 @@ public class ParamUtil {
 	}
 	
 	public static TreeNode str2TreeNode(String str)	{
-		str = str.replaceAll("[\r\n\\[\\]]","");
-		String[] sa = str.split(",");
+		String[] sa = str2Arr(str);
 		if("null".equals(sa[0]))	{
 			return null;
 		}
@@ -85,6 +88,14 @@ public class ParamUtil {
 			e.printStackTrace();
 		}
 	}
+	public static int[] str2IntArr(String str)	{
+		String[] sa = str2Arr(str);
+		int[]  result = new int[sa.length];
+		for(int i=0;i<sa.length;i++)	{
+			result[i] = Integer.parseInt(sa[i]);
+		}
+		return result;
+	}
 	public static void main(String[] args) {		
 //		TreeNode root = str2TreeNode(testStr);
 //		printTreeNode(root);
@@ -96,8 +107,6 @@ public class ParamUtil {
 	}
 	
 	public static String testStr = ""+/**~{*/""
-				+ "[-2,1,-1,8,5,7,4,9,null,3,null,0,6,5,2,null,null,null,null,3,null,7,null,0,2,1,2,null,null,null,nul"
-+ "\r\nl,6,null,0,null,1,-1,0,0,null,null,null,null,8,3,7,null,9,-2,null,7,null,null,null,null,null,null,6"
-+ "\r\n,null,null,null,null,3,null,null,7,1,1]"
+				+ "[100,4,200,1,3,2]"
 			+ "\r\n"/**}*/;
 }
