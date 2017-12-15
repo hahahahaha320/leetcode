@@ -96,6 +96,17 @@ public class ParamUtil {
 		}
 		return result;
 	}
+	public static void printBiArr(int[][] dp)	{
+		for(int i=0;i<dp.length;i++)	{
+			for(int j=0;j<dp[i].length;j++)	{
+				System.out.print(dp[i][j]+",");
+			}
+			System.out.println();
+		}
+	}
+	
+
+	
 	public static void main(String[] args) {		
 //		TreeNode root = str2TreeNode(testStr);
 //		printTreeNode(root);
