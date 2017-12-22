@@ -36,7 +36,7 @@ public class Q218_TheSkylineProblem {
         	int height = buildings[i][2];
         	Set<Region> addSet = new TreeSet<Region>();
         	for(Region region : set)	{
-        		if(to <= region.from || height <= region.height)	{
+        		if(to <= region.from || from >=region.to || height <= region.height)	{
         			continue;
         		}
         		if(to > region.from && to < region.to && from <= region.from)	{
@@ -108,7 +108,7 @@ public class Q218_TheSkylineProblem {
 		}
 		@Override
 		public String toString() {
-			return this.from+"->"+this.to;
+			return this.from+"->"+this.to+":"+this.height;
 		}
 	}
 	
