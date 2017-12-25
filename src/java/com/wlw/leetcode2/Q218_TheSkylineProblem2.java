@@ -1,18 +1,34 @@
 package com.wlw.leetcode2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import com.wlw.leetcode1.ParamUtil;
-
-public class Q218_TheSkylineProblem {
+/**
+ * 容易想到的解法是 用给一个Set保存0->Max之间的每个区间的最大高度，然后新进一个矩形，会对其中某些区间
+ * 有影响，做相应的处理即可。
+ * 
+ * 此题的关键是从 以矩形为单位进行处理转变为以点为单位进行处理：
+ * 
+ * 更好的方法是（天才的分析）分析可以知道：要求的结果就是在每个x轴上的点处取最高值就行了，
+ * 不需要考虑矩形，把所有矩形当做点来处理就行了，用一个优先级队列来保存当前的各个层级的高度。
+ * 然后注意两点：
+ * 1.如果遇到矩形的左边点，直接加到队列就行了，如果原道右边点，需要把他对应的左边点去掉，
+ * 	这就需要区分矩形的左右点，这里用负的高度来表示左点，正的高度来表示右点。
+ * 2.有可能有些最高点和之前的最高点是一样的，，这样的点不是结果的一部分，这就要保存前一个最高点，
+ * 	加入结果之前要判断一下。
+ * @author Administrator
+ *
+ */
+public class Q218_TheSkylineProblem2 {
 	private static long totalCount = 0;
 	@SuppressWarnings({ "unused", "unchecked" })
 	public static void main(String[] args) {
-		Q218_TheSkylineProblem test = new Q218_TheSkylineProblem();
+		Q218_TheSkylineProblem2 test = new Q218_TheSkylineProblem2();
 		
 		Date start = new Date();
 		
@@ -30,7 +46,10 @@ public class Q218_TheSkylineProblem {
 		String testStr2 = ""+/**~{*/""
 			+ "[[2190,661048,758784],[9349,881233,563276],[12407,630134,38165],[22681,726659,565517],[31035,590482,658874],[41079,901797,183267],[41966,103105,797412],[55007,801603,612368],[58392,212820,555654],[72911,127030,629492],[73343,141788,686181],[83528,142436,240383],[84774,599155,787928],[106461,451255,856478],[108312,994654,727797],[126206,273044,692346],[134022,376405,472351],[151396,993568,856873],[171466,493683,664744],[173068,901140,333376],[179498,667787,518146],[182589,973265,394689],[201756,900649,31050],[215635,818704,576840],[223320,282070,850252],[252616,974496,951489],[255654,640881,682979],[287063,366075,76163],[291126,900088,410078],[296928,373424,41902],[297159,357827,174187],[306338,779164,565403],[317547,979039,172892],[323095,698297,566611],[323195,622777,514005],[333003,335175,868871],[334996,734946,720348],[344417,952196,903592],[348009,977242,277615],[351747,930487,256666],[363240,475567,699704],[365620,755687,901569],[369650,650840,983693],[370927,621325,640913],[371945,419564,330008],[415109,890558,606676],[427304,782478,822160],[439482,509273,627966],[443909,914404,117924],[446741,853899,285878],[480389,658623,986748],[545123,873277,431801],[552469,730722,574235],[556895,568292,527243],[568368,728429,197654],[593412,760850,165709],[598238,706529,500991],[604335,921904,990205],[627682,871424,393992],[630315,802375,714014],[657552,782736,175905],[701356,827700,70697],[712097,737087,157624],[716678,889964,161559],[724790,945554,283638],[761604,840538,536707],[776181,932102,773239],[855055,983324,880344]]"
 			+ "\r\n"/**}*/;
-		int[][] buildings = ParamUtil.str2IntArrArr(testStr2);
+		String testStr3 = ""+/**~{*/""
+			+ "[[2,9,10],[3,7,12],[4,6,8]]"
+			+ "\r\n	"/**}*/;
+		int[][] buildings = ParamUtil.str2IntArrArr(testStr3);
 		
 		Object result = test.getSkyline(buildings);
 		
@@ -43,95 +62,30 @@ public class Q218_TheSkylineProblem {
 		}
 	}
 	public List<int[]> getSkyline(int[][] buildings) {
-        Set<Region> set = new TreeSet<Region>();
-        set.add(new Region(0,Integer.MAX_VALUE,0));
-        for(int i=0;i<buildings.length;i++)	{
-        	int from = buildings[i][0];
-        	int to = buildings[i][1];
-        	int height = buildings[i][2];
-        	Set<Region> addSet = new TreeSet<Region>();
-        	for(Region region : set)	{
-        		if(to <= region.from || from >=region.to || height <= region.height)	{
-        			continue;
-        		}
-        		if(to > region.from && to < region.to && from <= region.from)	{
-        			addSet.add(new Region(region.from,to,height));
-        			region.from = to;
-        			continue;
-        		}
-        		if(to > region.from && to < region.to && from > region.from)	{
-        			addSet.add(new Region(from,to,height));
-        			addSet.add(new Region(region.from,from,region.height));
-        			region.from = to;
-        			continue;
-        		}
-        		if(to > region.from && to >= region.to && from > region.from)	{
-        			addSet.add(new Region(from,to,height));
-        			region.to = from;
-        			continue;
-        		}
-        		if(to >= region.to && from <= region.from)	{
-        			region.height = height;
-        			continue;
-        		}
-        		if(region.from >= to)	{
-        			break;
-        		}
-            }
-        	set.addAll(addSet);
+        List<int[]> height = new ArrayList<>();
+        for(int[] b:buildings) {
+            height.add(new int[]{b[0], -b[2]});
+            height.add(new int[]{b[1], b[2]});
         }
-        set.add(new Region(Integer.MAX_VALUE,Integer.MAX_VALUE,0));
-        List<int[]> result = new ArrayList<int[]>();
-        Region pre = new Region(0,0,0);
-        for(Region region : set)	{
-        	if(!region.height.equals(pre.height))	{
-        		result.add(new int[]{region.from,region.height});
-        	}
-        	pre = region;
+        Collections.sort(height, (a, b) -> (a[0] == b[0]) ? a[1] - b[1] : a[0] - b[0]);
+        Queue<Integer> pq = new PriorityQueue<Integer>(11, (a,b)->b-a);
+        pq.offer(0);
+        int prev = 0;
+        List<int[]> result = new ArrayList<>();
+        for(int[] h:height) {
+            if(h[1] < 0) {
+                pq.offer(-h[1]);
+            } else {
+            	pq.remove(h[1]);
+            }
+            int cur = pq.peek();//获取当前队列的最大值
+            if(prev != cur) {
+                result.add(new int[]{h[0], cur});
+                prev = cur;
+            }
         }
         return result;
-	}
-	public static class Region implements Comparable<Region>	{
-		Integer from;
-		Integer to;
-		Integer height;
-		public Region(Integer from,Integer to)	{
-			this.from = from;
-			this.to = to;
-		}
-		public Region(Integer from,Integer to,Integer height)	{
-			this.from = from;
-			this.to = to;
-			this.height = height;
-		}
-		@Override
-		public boolean equals(Object obj) {
-			Region region = (Region)obj;
-			return this.from == region.from && this.to == region.to;
-		}
-		@Override
-		public int hashCode() {
-			return from.hashCode()+to.hashCode();
-		}
-		@Override
-		public int compareTo(Region o) {
-			if(this.from > o.from)	{
-				return 1;
-			} else if(this.from == o.from)	{
-				if(this.to == o.to)	{
-					return 0;
-				} else if(this.to > o.to)	{
-					return 1;
-				}
-			}
-			return -1;
-		}
-		@Override
-		public String toString() {
-			return this.from+"->"+this.to+":"+this.height;
-		}
-	}
-	
+    }
 }
 
 

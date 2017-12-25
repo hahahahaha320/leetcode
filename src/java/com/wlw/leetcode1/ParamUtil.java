@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class ParamUtil {
 	
 	private static String[] str2Arr(String str)	{
-		str = str.replaceAll("[\r\n\\[\\]\"]","");
+		str = str.replaceAll("[\t\r\n\\[\\]\"]","");
 		String[] sa = str.split(",");
 		return sa;
 	}
@@ -93,6 +93,14 @@ public class ParamUtil {
 		int[]  result = new int[sa.length];
 		for(int i=0;i<sa.length;i++)	{
 			result[i] = Integer.parseInt(sa[i]);
+		}
+		return result;
+	}
+	public static int[][] str2IntArrArr(String str)	{
+		String[] sa = str.split("],");
+		int[][]  result = new int[sa.length][];
+		for(int i=0;i<sa.length;i++)	{
+			result[i] = str2IntArr(sa[i]);
 		}
 		return result;
 	}
