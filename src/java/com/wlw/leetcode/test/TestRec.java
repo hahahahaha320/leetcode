@@ -1,4 +1,4 @@
-package com.wlw.leetcode;
+package com.wlw.leetcode.test;
 
 import java.util.ArrayList;
 import java.util.List;

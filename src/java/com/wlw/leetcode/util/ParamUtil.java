@@ -1,4 +1,4 @@
-package com.wlw.leetcode1;
+package com.wlw.leetcode.util;
 
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class ParamUtil {
 			System.out.println("null,");
 			return;
 		} else {
-			System.out.println(root.val+",");
+			System.out.print(root.val+",");
 		}
 		try	{
 			BlockingQueue<TreeNode> queue = new LinkedBlockingQueue<TreeNode>();

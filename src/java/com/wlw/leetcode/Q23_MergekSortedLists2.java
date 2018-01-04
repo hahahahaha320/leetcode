@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import com.wlw.leetcode.util.ListNode;
+
 public class Q23_MergekSortedLists2 {
 	
 	public static void main(String[] args) {

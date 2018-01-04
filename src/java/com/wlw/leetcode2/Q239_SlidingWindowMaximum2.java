@@ -2,7 +2,7 @@ package com.wlw.leetcode2;
 
 import java.util.Date;
 
-import com.wlw.leetcode1.ParamUtil;
+import com.wlw.leetcode.util.ParamUtil;
 
 public class Q239_SlidingWindowMaximum2 {
 	private static long totalCount = 0;

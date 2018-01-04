@@ -2,6 +2,8 @@ package com.wlw.leetcode;
 
 import java.util.Date;
 
+import com.wlw.leetcode.util.Util;
+
 public class Q80_RemoveDuplicatesfromSortedArrayII {
 
 	public static void main(String[] args) {

@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 
+import com.wlw.leetcode.util.TreeNode;
+
 public class Q99_RecoverBinarySearchTree2 {
 
 	public static void main(String[] args) {

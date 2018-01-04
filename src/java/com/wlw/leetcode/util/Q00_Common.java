@@ -1,9 +1,9 @@
-package com.wlw.leetcode1;
+package com.wlw.leetcode.util;
 
 import java.util.Date;
 
 public class Q00_Common {
-	private static long totalCount = 0;
+
 	public static void main(String[] args) {
 		Q00_Common test = new Q00_Common();
 		
@@ -13,7 +13,7 @@ public class Q00_Common {
 		Object result = test.longestPalindrome(str);
 		
 		Date end = new Date();
-		System.out.println("time:"+ (end.getTime()-start.getTime())+",totalCount:"+totalCount);
+		System.out.println("time:"+ (end.getTime()-start.getTime()));
 		System.out.println(result);
 	}
 	public String longestPalindrome(String str) {

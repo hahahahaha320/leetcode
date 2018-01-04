@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.wlw.leetcode.util.ParamUtil;
+
 public class Q139_WordBreak {
 	private static long totalCount = 0;
 	@SuppressWarnings("unused")

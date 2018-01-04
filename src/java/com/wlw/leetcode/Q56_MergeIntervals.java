@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.wlw.leetcode.util.Interval;
+
 public class Q56_MergeIntervals {
 
 	public static void main(String[] args) {

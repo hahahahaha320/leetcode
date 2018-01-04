@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import com.wlw.leetcode1.ParamUtil;
+import com.wlw.leetcode.util.ParamUtil;
+
 /**
  * 容易想到的解法是 用给一个Set保存0->Max之间的每个区间的最大高度，然后新进一个矩形，会对其中某些区间
  * 有影响，做相应的处理即可。

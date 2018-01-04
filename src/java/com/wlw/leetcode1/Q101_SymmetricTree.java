@@ -2,6 +2,8 @@ package com.wlw.leetcode1;
 
 import java.util.Date;
 
+import com.wlw.leetcode.util.TreeNode;
+
 public class Q101_SymmetricTree {
 
 	public static void main(String[] args) {

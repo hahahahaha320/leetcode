@@ -2,6 +2,8 @@ package com.wlw.leetcode;
 
 import java.util.Date;
 
+import com.wlw.leetcode.util.TreeNode;
+
 public class Q100_SameTree {
 
 	public static void main(String[] args) {

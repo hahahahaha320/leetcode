@@ -3,6 +3,8 @@ package com.wlw.leetcode;
 import java.util.Date;
 import java.util.Stack;
 
+import com.wlw.leetcode.util.TreeNode;
+
 public class Q98_ValidateBinarySearchTree2 {
 
 	public static void main(String[] args) {

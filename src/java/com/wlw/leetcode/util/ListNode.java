@@ -1,10 +1,9 @@
-package com.wlw.leetcode1;
-
+package com.wlw.leetcode.util;
 
 public class ListNode {
-	int val;
-	ListNode next;
-	ListNode(int x) {
+	public int val;
+	public ListNode next;
+	public ListNode(int x) {
 		val = x;
 	}
 	public String toString()	{

@@ -1,4 +1,4 @@
-package com.wlw.leetcode;
+package com.wlw.leetcode.util;
 
 public class Util {
 	public static void printArray(int[] arr)	{

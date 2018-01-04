@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.wlw.leetcode.util.Point;
+
 public class Q149MaxPointsonaLine2 {
 
 	public static void main(String[] args) {

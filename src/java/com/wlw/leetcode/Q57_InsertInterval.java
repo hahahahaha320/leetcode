@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import com.wlw.leetcode.util.Interval;
+
 public class Q57_InsertInterval {
 
 	public static void main(String[] args) {

@@ -2,6 +2,8 @@ package com.wlw.leetcode;
 
 import java.util.Date;
 
+import com.wlw.leetcode.util.ListNode;
+
 public class Q19_RemoveNthNodeFromEndofList {
 	
 	public static void main(String[] args) {

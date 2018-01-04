@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.wlw.leetcode.util.TreeNode;
+
 public class Q94_BinaryTreeInorderTraversal {
 
 	public static void main(String[] args) {

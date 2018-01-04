@@ -3,6 +3,8 @@ package com.wlw.leetcode;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.wlw.leetcode.util.Util;
+
 public class Q88_MergeSortedArray {
 
 	public static void main(String[] args) {

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.wlw.leetcode1.ParamUtil;
+import com.wlw.leetcode.util.ParamUtil;
 
 public class Q218_TheSkylineProblem {
 	private static long totalCount = 0;
